@@ -10,7 +10,7 @@ col2 = E(:,2);
 max_ids = max(max(col1,col2));
 As = sparse(col1, col2, 1, max_ids, max_ids); 
 
-% Affinity matrix
+% Affinity matrix, in this case the adjacency matrix.
 A = full(As);
 
 % Diagonal matrix
@@ -29,5 +29,5 @@ Y = bsxfun(@rdivide, X, sum(X.^2, 2).^(1/2));
 idx = kmeans(Y, k, 'MaxIter', maxIter);
 
 % Construct graph from A and cluster each point
-G = graph(A);
+G = graph(full(As));
 G.Nodes.cluster = idx;
